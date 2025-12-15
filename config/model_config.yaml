@@ -1,0 +1,69 @@
+# YOLO Model Configuration
+detection:
+  model: yolov8x.pt
+  device: cuda
+  confidence: 0.3
+  iou: 0.5
+  img_size: 1920
+  classes: [0]  # person class
+  max_det: 2
+  batch_size: 1
+  
+# Tracking Configuration
+tracking:
+  tracker: botsort.yaml
+  persist: true
+  max_age: 30
+  min_hits: 3
+  
+# Pose Estimation
+pose:
+  model: yolov8x-pose.pt
+  num_keypoints: 21
+  keypoint_names:
+    - nose
+    - left_eye
+    - right_eye
+    - left_ear
+    - right_ear
+    - left_shoulder
+    - right_shoulder
+    - left_elbow
+    - right_elbow
+    - left_wrist
+    - right_wrist
+    - left_hip
+    - right_hip
+    - left_knee
+    - right_knee
+    - left_ankle
+    - right_ankle
+    - left_hand
+    - right_hand
+    - head_center
+    - torso_center
+  conf_threshold: 0.5
+  
+# Action Recognition Model
+action_recognition:
+  model_path: models/action_recognition.pth
+  num_classes: 15
+  lstm_hidden_dim: 256
+  num_lstm_layers: 2
+  sequence_length: 30
+  actions:
+    - jab
+    - cross
+    - hook
+    - uppercut
+    - front_kick
+    - roundhouse_kick
+    - knee_strike
+    - takedown_attempt
+    - clinch_control
+    - ground_control
+    - submission_attempt
+    - guard_pass
+    - block
+    - slip
+    - reset
