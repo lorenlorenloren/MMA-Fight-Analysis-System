@@ -1,0 +1,23 @@
+import cv2
+import numpy as np
+from typing import Generator, Tuple
+
+class VideoProcessor:
+    def __init__(self, target_fps: int = 30, target_resolution: Tuple[int, int] = (1920, 1080)):
+        self.target_fps = target_fps
+        self.target_resolution = target_resolution
+        
+    def process_stream(self, video_path: str) -> Generator[np.ndarray, None, None]:
+        cap = cv2.VideoCapture(video_path)
+        source_fps = cap.get(cv2.CAP_PROP_FPS)
+        frame_skip = int(source_fps / self.target_fps)
+        
+        frame_idx = 0
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if not ret:
+                break
+            if frame_idx % frame_skip == 0:
+                frame = cv2.resize(frame, self.target_resolution)
+                yield self._preprocess_frame(frame)
+            frame_idx += 1
