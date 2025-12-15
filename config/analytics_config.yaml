@@ -1,0 +1,62 @@
+# Analytics Configuration for MMA Fight Analysis
+
+# Video Processing
+video:
+  target_fps: 30
+  target_resolution: [1920, 1080]
+  frame_skip: 1
+  
+# Strike Detection Parameters
+strike_detection:
+  speed_threshold: 2.0  # m/s
+  proximity_threshold: 1.5  # meters
+  hit_threshold: 0.3  # meters (contact distance)
+  hand_velocity_window: 5  # frames
+  min_acceleration: 5.0  # m/s^2
+  
+# Grappling Detection
+grappling:
+  clinch_distance: 0.5  # meters
+  ground_detect_aspect_ratio: 0.8
+  min_ground_duration: 3  # frames
+  
+# Spatial Analysis
+spatial:
+  cage_diameter: 9.1  # meters (UFC octagon)
+  center_zone_radius: 3.64  # meters (40% of radius)
+  striking_range: [0.5, 2.0]  # meters
+  disengaged_threshold: 2.5  # meters
+  
+# Cage Control
+cage_control:
+  num_zones: 8
+  center_weight: 0.6
+  edge_penalty: 0.4
+  
+# Activity Metrics
+activity:
+  joint_variance_window: 30  # frames
+  idle_threshold: 0.01  # variance
+  high_activity_threshold: 0.1
+  
+# Round Configuration
+round:
+  duration: 300  # seconds (5 minutes)
+  rest_duration: 60  # seconds
+  num_rounds: 3  # default for UFC
+  
+# Output & Caching
+output:
+  cache_dir: data/cache
+  checkpoint_interval: 100  # frames
+  save_pickle: true
+  save_json: true
+  
+# Visualization
+visualization:
+  draw_skeleton: true
+  draw_bboxes: true
+  draw_actions: true
+  draw_stats: true
+  minimap_size: [200, 200]
+  overlay_alpha: 0.7
